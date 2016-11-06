@@ -8,22 +8,20 @@
 // @grant        none
 // ==/UserScript==
 
-// Note: We can decide name and description later.
-
-// Code here that gets the var studioid (studio where the user running the userscript will remove someone)
-$.ajax({type: "PUT",url: "https://scratch.mit.edu/site-api/users/curators-in/" + studioid + "/remove/?usernames=abcd"});
-//
+const studioid2 = "3540516";
 
 // Here the code that gets if someone is online/offline. var studioid2 should be taken from about me
 var xmlHttp = new XMLHttpRequest();
-xmlHttp.open( "GET", 'https://scratch.mit.edu/studios/' + studioid2 + '/activity/', false );
-xmlHttp.send( null );
-var response  = xmlHttp.responseText;
-var find = response.search('<a href="/users/ABCD/">ABCD</a>');
-var find2 = (response.substring(find+55,find+65));
-var find3 = find2.replace('.','');
-var find4 = find3.replace('a','A');
-var find5 = find4.replace('p','P');
-var find6 = find5.replace('m','M');
+var UTCTimeStamp = new Date().getTime();
+xmlHttp.open("GET", 'https://scratch.mit.edu/studios/' + studioid2 + '/activity/', true);
+xmlHttp.onreadystatechange = function(){
+    var response = xmlHttp.responseText;
+    var find = response.indexOf('<a href="/users/isOnline/">isOnline</a>');
+		var find2 = (response.substring(find+63,find+72));
+		var find3 = find2.replace('.','').toUpperCase();
+		
 
 // Result is "HH:MM PM" (pm and am on caps)
+  }
+xmlHttp.send();
+
